@@ -1,9 +1,6 @@
 package sber.bank.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
@@ -11,17 +8,19 @@ import java.util.Date;
  * Пользователь банковской системы.
  */
 @Entity
+@Table(name="\"user\"")
 public class User {
     /**
      * Уникальный идентификатор пользователя.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * Имя пользователя.
      */
+    @Column(name="\"name\"")
     private String name;
 
     /**
@@ -59,7 +58,7 @@ public class User {
      *
      * @return Идентификатор пользователя.
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -68,7 +67,7 @@ public class User {
      *
      * @param id Новый идентификатор пользователя.
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

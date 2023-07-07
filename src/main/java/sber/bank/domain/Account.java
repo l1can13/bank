@@ -11,6 +11,7 @@ public class Account {
      * Номер счета.
      */
     @Id
+    @Column(name="\"number\"")
     private Long number;
 
     /**

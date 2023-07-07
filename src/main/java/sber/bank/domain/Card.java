@@ -13,13 +13,14 @@ public class Card {
      * Номер карты.
      */
     @Id
+    @Column(name="\"number\"")
     private Long number;
 
     /**
      * Банковский счет, связанный с картой.
      */
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_number")
     private Account account;
 
     /**
