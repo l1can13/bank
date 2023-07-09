@@ -54,6 +54,17 @@ public class Card {
     }
 
     /**
+     * Конструктор копирования.
+     * @param card Объект Card.
+     */
+    public Card(Card card) {
+        this.number = card.getNumber();
+        this.account = card.getAccount();
+        this.expirationDate = card.getExpirationDate();
+        this.cvv = card.getCvv();
+    }
+
+    /**
      * Получение номера карты.
      *
      * @return Номер карты.

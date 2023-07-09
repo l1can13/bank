@@ -14,7 +14,7 @@ public class User {
      * Уникальный идентификатор пользователя.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     /**
@@ -51,6 +51,17 @@ public class User {
         this.name = name;
         this.birthdate = birthdate;
         this.address = address;
+    }
+
+    /**
+     * Конструктор копирования.
+     * @param user Объект User.
+     */
+    public User(User user) {
+        this.id = user.getId();
+        this.name = user.getName();
+        this.birthdate = user.getBirthdate();
+        this.address = user.getAddress();
     }
 
     /**

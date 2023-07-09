@@ -1,7 +1,7 @@
-drop sequence if exists user_seq;
-create sequence user_seq start with 1 increment by 50;
+-- Создание последовательности для идентификаторов.
+create sequence hibernate_sequence start 1 increment 1;
 
--- Создание таблицы "account"
+-- Создание таблицы "account".
 create table account
 (
     "number"  bigint not null,
@@ -11,7 +11,7 @@ create table account
     primary key ("number")
 );
 
--- Создание таблицы "card"
+-- Создание таблицы "card".
 create table card
 (
     "number"        bigint not null,
@@ -21,7 +21,7 @@ create table card
     primary key ("number")
 );
 
--- Создание таблицы "user"
+-- Создание таблицы "user".
 create table "user"
 (
     id        bigint not null,
@@ -31,7 +31,7 @@ create table "user"
     primary key (id)
 );
 
--- Добавление внешних ключей
+-- Добавление внешних ключей.
 alter table if exists account
     add constraint FKlpehafsh6t7ka32286sp7ipi7
     foreign key ("user_id") references "user";

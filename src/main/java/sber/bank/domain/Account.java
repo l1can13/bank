@@ -51,6 +51,17 @@ public class Account {
     }
 
     /**
+     * Конструктор копирования.
+     * @param account Объект Account.
+     */
+    public Account(Account account) {
+        this.number = account.getNumber();
+        this.user = account.getUser();
+        this.currency = account.getCurrency();
+        this.balance = account.getBalance();
+    }
+
+    /**
      * Получение номера счета.
      *
      * @return Номер счета.
