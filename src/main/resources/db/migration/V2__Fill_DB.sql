@@ -8,7 +8,7 @@ values (1, '1990-01-01', '123 Main St, City', 'John Smith'),
 insert into account ("number", balance, "user_id", currency)
 values (1001001001001001, 5000.00, 1, 'USD'),
        (2002002002002002, 7000.00, 2, 'EUR'),
-       (3003003003003003, 3500.00, 3, 'GBP');
+       (3003003003003003, 3500.00, 3, 'RUB');
 
 -- Добавление данных в таблицу "card"
 insert into card ("number", cvv, account_number, expiration_date)

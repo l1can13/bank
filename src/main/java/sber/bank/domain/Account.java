@@ -1,5 +1,6 @@
 package sber.bank.domain;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -8,28 +9,33 @@ import java.util.Objects;
  * Банковский счет.
  */
 @Entity
+@Schema(description = "Банковский счет")
 public class Account {
     /**
      * Номер счета.
      */
     @Id
     @Column(name = "\"number\"")
+    @Schema(description = "Номер счета", example = "1234567890123456")
     private Long number;
 
     /**
      * Владелец.
      */
     @ManyToOne(fetch = FetchType.LAZY)
+    @Schema(description = "Владелец счета")
     private User user;
 
     /**
      * Валюта.
      */
+    @Schema(description = "Валюта", example = "RUB, USD, EUR")
     private String currency;
 
     /**
      * Баланс.
      */
+    @Schema(description = "Баланс", example = "1000.0")
     private Double balance;
 
     /**

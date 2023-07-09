@@ -1,5 +1,6 @@
 package sber.bank.domain;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -9,12 +10,14 @@ import java.util.Objects;
  * Банковская карта.
  */
 @Entity
+@Schema(description = "Банковская карта")
 public class Card {
     /**
      * Номер карты.
      */
     @Id
     @Column(name = "\"number\"")
+    @Schema(description = "Номер карты", example = "1234567890123456")
     private Long number;
 
     /**
@@ -22,16 +25,19 @@ public class Card {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_number")
+    @Schema(description = "Банковский счет, связанный с картой")
     private Account account;
 
     /**
      * Дата окончания срока действия карты.
      */
+    @Schema(description = "Дата окончания срока действия карты")
     private Date expirationDate;
 
     /**
      * CVV-код карты.
      */
+    @Schema(description = "CVV-код карты", example = "123")
     private Integer cvv;
 
     /**
