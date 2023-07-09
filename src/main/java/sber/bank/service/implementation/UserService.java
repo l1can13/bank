@@ -105,8 +105,8 @@ public class UserService implements IService<User> {
     /**
      * Обновляет данные пользователя.
      *
-     * @param id          Идентификатор пользователя.
-     * @param userDetail  Обновленные данные пользователя.
+     * @param id         Идентификатор пользователя.
+     * @param userDetail Обновленные данные пользователя.
      */
     @Override
     public void update(Long id, User userDetail) {

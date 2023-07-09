@@ -1,5 +1,6 @@
 package sber.bank.domain;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -10,28 +11,33 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "\"user\"")
+@Schema(description = "Пользователь банковской системы")
 public class User {
     /**
      * Уникальный идентификатор пользователя.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Schema(description = "Уникальный идентификатор пользователя", example = "1")
     private Long id;
 
     /**
-     * Имя пользователя.
+     * ФИО пользователя.
      */
     @Column(name = "\"name\"")
+    @Schema(description = "ФИО пользователя", example = "Иванов Иван Иванович")
     private String name;
 
     /**
      * Дата рождения пользователя.
      */
+    @Schema(description = "Дата рождения пользователя")
     private Date birthdate;
 
     /**
      * Адрес пользователя.
      */
+    @Schema(description = "Адрес пользователя", example = "ул. Пушкина, д. 10")
     private String address;
 
     /**

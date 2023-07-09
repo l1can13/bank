@@ -16,7 +16,14 @@ import java.util.List;
  */
 @Service
 public class AccountService implements IService<Account> {
+    /**
+     * Репозиторий для доступа к данным о банковских счетах.
+     */
     private final AccountRepository accountRepository;
+
+    /**
+     * Репозиторий для доступа к данным о банковских картах.
+     */
     private final CardRepository cardRepository;
 
     /**
@@ -99,6 +106,12 @@ public class AccountService implements IService<Account> {
         accountRepository.save(account);
     }
 
+    /**
+     * Получает список банковских карт, связанных с указанным банковским счетом.
+     *
+     * @param account Банковский счет.
+     * @return Список банковских карт, связанных с указанным счетом.
+     */
     public List<Card> getCards(Account account) {
         return cardRepository.findByAccount(account);
     }
