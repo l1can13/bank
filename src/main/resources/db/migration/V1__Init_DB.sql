@@ -1,5 +1,6 @@
 -- Создание последовательности для идентификаторов.
-create sequence hibernate_sequence start 1 increment 1;
+drop sequence if exists user_seq;
+create sequence user_seq start with 1 increment by 50;
 
 -- Создание таблицы "account".
 create table account

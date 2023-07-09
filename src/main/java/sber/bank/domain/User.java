@@ -14,7 +14,7 @@ public class User {
      * Уникальный идентификатор пользователя.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     /**
