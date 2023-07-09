@@ -4,8 +4,10 @@ import org.springframework.web.bind.annotation.*;
 import sber.bank.domain.Account;
 import sber.bank.domain.Card;
 import sber.bank.domain.User;
+import sber.bank.exceptions.BadArgumentException;
 import sber.bank.exceptions.NotFoundException;
 import sber.bank.service.implementation.UserService;
+import sber.bank.validation.Validation;
 
 import java.util.List;
 
@@ -44,10 +46,15 @@ public class UserController {
      *
      * @param id Идентификатор пользователя.
      * @return Список счетов пользователя.
+     * @throws BadArgumentException Если идентификационный номер пользователя некорректен.
      * @throws NotFoundException Если пользователь не найден.
      */
     @GetMapping("{id}/accounts")
     public List<Account> getUserAccounts(@PathVariable Long id) {
+        // region Проверка входных данных
+        Validation.validateUserId(id);
+        // endregion
+
         return userService.getAccounts(id);
     }
 
@@ -56,10 +63,15 @@ public class UserController {
      *
      * @param id Идентификатор пользователя.
      * @return Список карт пользователя.
+     * @throws BadArgumentException Если идентификационный номер пользователя некорректен.
      * @throws NotFoundException Если пользователь не найден.
      */
     @GetMapping("{id}/cards")
     public List<Card> getUserCards(@PathVariable Long id) {
+        // region Проверка входных данных
+        Validation.validateUserId(id);
+        // endregion
+
         return userService.getCards(id);
     }
 
@@ -68,10 +80,15 @@ public class UserController {
      *
      * @param id Идентификатор пользователя.
      * @return Общий баланс пользователя.
+     * @throws BadArgumentException Если идентификационный номер пользователя некорректен.
      * @throws NotFoundException Если пользователь не найден.
      */
     @GetMapping("{id}/balance")
     public double getOverallBalance(@PathVariable Long id) {
+        // region Проверка входных данных
+        Validation.validateUserId(id);
+        // endregion
+
         return userService.getOverallBalance(id);
     }
 
@@ -80,9 +97,14 @@ public class UserController {
      *
      * @param user Данные нового пользователя.
      * @return true, если пользователь успешно создан и совпадает с переданными данными, иначе false.
+     * @throws BadArgumentException Если данные пользователя некорректны.
      */
     @PostMapping("/create")
     public boolean createUser(@RequestBody User user) {
+        // region Проверка входных данных
+        Validation.validateUser(user);
+        // endregion
+
         return userService.create(user).equals(user);
     }
 
@@ -90,10 +112,15 @@ public class UserController {
      * Удаляет пользователя по его идентификатору.
      *
      * @param id Идентификатор пользователя.
+     * @throws BadArgumentException Если идентификационный номер пользователя некорректен.
      * @throws NotFoundException Если пользователь не найден.
      */
     @PostMapping("/delete/{id}")
     public void deleteUser(@PathVariable Long id) {
+        // region Проверка входных данных
+        Validation.validateUserId(id);
+        // endregion
+
         userService.delete(id);
     }
 
@@ -102,10 +129,16 @@ public class UserController {
      *
      * @param id         Идентификатор пользователя.
      * @param userDetail Обновленные данные пользователя.
+     * @throws BadArgumentException Если данные пользователя некорректны.
      * @throws NotFoundException Если пользователь не найден.
      */
     @PutMapping("/update/{id}")
     public void updateUser(@PathVariable Long id, @RequestBody User userDetail) {
+        // region Проверка входных данных
+        Validation.validateUserId(id);
+        Validation.validateUser(userDetail);
+        // endregion
+
         userService.update(id, userDetail);
     }
 }
