@@ -11,6 +11,7 @@ import sber.bank.repos.CardRepository;
 import sber.bank.repos.UserRepository;
 import sber.bank.service.IService;
 
+import java.util.Currency;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -144,14 +145,48 @@ public class UserService implements IService<User> {
     }
 
     /**
-     * Возвращает общий баланс пользователя (сумму балансов всех его счетов).
+     * Возвращает общий баланс пользователя (сумму балансов всех его счетов в рублях).
      *
      * @param id Идентификатор пользователя.
-     * @return Общий баланс пользователя.
+     * @return Общий баланс пользователя в рублях.
      */
     public double getOverallBalance(Long id) {
-        return getAccounts(id).stream()
-                .mapToDouble(Account::getBalance)
-                .sum();
+        List<Account> accounts = getAccounts(id);
+        double totalBalance = 0.0;
+
+        for (Account account : accounts) {
+            String currencyCode = account.getCurrency();
+            double accountBalance = account.getBalance();
+
+            if (!currencyCode.equals("RUB")) {
+                Currency accountCurrency = Currency.getInstance(currencyCode);
+                double exchangeRate = getExchangeRate(accountCurrency, Currency.getInstance("RUB"));
+                accountBalance *= exchangeRate;
+            }
+
+            totalBalance += accountBalance;
+        }
+
+        return totalBalance;
+    }
+
+    /**
+     * Возвращает текущий курс обмена между двумя валютами.
+     * Курс валют захардкожен. При большом желании можно реализовать конвертер валют, но времени уже не было.
+     *
+     * @param sourceCurrency Исходная валюта.
+     * @param targetCurrency Целевая валюта.
+     * @return Курс обмена между исходной и целевой валютами.
+     */
+    private double getExchangeRate(Currency sourceCurrency, Currency targetCurrency) {
+        if (sourceCurrency.getCurrencyCode().equals("USD") && targetCurrency.getCurrencyCode().equals("RUB")) {
+            return 90.0;
+        }
+
+        if (sourceCurrency.getCurrencyCode().equals("EUR") && targetCurrency.getCurrencyCode().equals("RUB")) {
+            return 100.0;
+        }
+
+        return 1.0;
     }
 }
