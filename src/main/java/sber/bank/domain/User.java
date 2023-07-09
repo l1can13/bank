@@ -3,12 +3,13 @@ package sber.bank.domain;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Пользователь банковской системы.
  */
 @Entity
-@Table(name="\"user\"")
+@Table(name = "\"user\"")
 public class User {
     /**
      * Уникальный идентификатор пользователя.
@@ -20,7 +21,7 @@ public class User {
     /**
      * Имя пользователя.
      */
-    @Column(name="\"name\"")
+    @Column(name = "\"name\"")
     private String name;
 
     /**
@@ -55,6 +56,7 @@ public class User {
 
     /**
      * Конструктор копирования.
+     *
      * @param user Объект User.
      */
     public User(User user) {
@@ -134,5 +136,49 @@ public class User {
      */
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    /**
+     * Проверяет, является ли указанный объект равным данному пользователю.
+     *
+     * @param obj Объект для сравнения.
+     * @return true, если указанный объект равен данному пользователю, иначе false.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        User user = (User) obj;
+
+        return id.equals(user.id)
+                && name.equals(user.name)
+                && birthdate.equals(user.birthdate)
+                && address.equals(user.address);
+    }
+
+    /**
+     * Возвращает хеш-код текущего объекта.
+     *
+     * @return Хеш-код объекта.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, birthdate, address);
+    }
+
+    /**
+     * Преобразует данного пользователя в строку.
+     *
+     * @return Строковое представление пользователя.
+     */
+    @Override
+    public String toString() {
+        return String.format("User{id=%d, name='%s', birthdate=%s, address='%s'}",
+                id, name, birthdate, address);
     }
 }

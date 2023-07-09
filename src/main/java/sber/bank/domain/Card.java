@@ -3,6 +3,7 @@ package sber.bank.domain;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Банковская карта.
@@ -13,7 +14,7 @@ public class Card {
      * Номер карты.
      */
     @Id
-    @Column(name="\"number\"")
+    @Column(name = "\"number\"")
     private Long number;
 
     /**
@@ -55,6 +56,7 @@ public class Card {
 
     /**
      * Конструктор копирования.
+     *
      * @param card Объект Card.
      */
     public Card(Card card) {
@@ -134,5 +136,49 @@ public class Card {
      */
     public void setCvv(Integer cvv) {
         this.cvv = cvv;
+    }
+
+    /**
+     * Проверяет, является ли указанный объект равным текущему объекту.
+     *
+     * @param obj Объект для сравнения.
+     * @return true, если объекты равны, в противном случае - false.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Card card = (Card) obj;
+
+        return number.equals(card.number)
+                && account.equals(card.account)
+                && expirationDate.equals(card.expirationDate)
+                && cvv.equals(card.cvv);
+    }
+
+    /**
+     * Возвращает хеш-код текущего объекта.
+     *
+     * @return Хеш-код объекта.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(number, account, expirationDate, cvv);
+    }
+
+    /**
+     * Возвращает строковое представление объекта Card.
+     *
+     * @return Строковое представление объекта Card.
+     */
+    @Override
+    public String toString() {
+        return String.format("Card{number=%d, account=%s, expirationDate=%s, cvv=%d}",
+                number, account, expirationDate, cvv);
     }
 }

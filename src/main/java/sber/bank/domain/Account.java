@@ -2,6 +2,8 @@ package sber.bank.domain;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 /**
  * Банковский счет.
  */
@@ -11,7 +13,7 @@ public class Account {
      * Номер счета.
      */
     @Id
-    @Column(name="\"number\"")
+    @Column(name = "\"number\"")
     private Long number;
 
     /**
@@ -52,6 +54,7 @@ public class Account {
 
     /**
      * Конструктор копирования.
+     *
      * @param account Объект Account.
      */
     public Account(Account account) {
@@ -131,5 +134,49 @@ public class Account {
      */
     public void setBalance(Double balance) {
         this.balance = balance;
+    }
+
+    /**
+     * Проверяет, является ли указанный объект равным данному банковскому счету.
+     *
+     * @param obj Объект для сравнения.
+     * @return true, если указанный объект равен данному банковскому счету, иначе false.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Account account = (Account) obj;
+
+        return number.equals(account.number)
+                && user.equals(account.user)
+                && currency.equals(account.currency)
+                && balance.equals(account.balance);
+    }
+
+    /**
+     * Возвращает хеш-код текущего объекта.
+     *
+     * @return Хеш-код объекта.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(number, user, currency, balance);
+    }
+
+    /**
+     * Возвращает строковое представление данного банковского счета.
+     *
+     * @return Строковое представление банковского счета.
+     */
+    @Override
+    public String toString() {
+        return String.format("Account{number=%d, user=%s, currency='%s', balance=%.2f}",
+                number, user, currency, balance);
     }
 }
