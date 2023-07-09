@@ -50,7 +50,7 @@ public class CardController {
      * @throws BadArgumentException Если номер карты некорректен.
      * @throws NotFoundException Если карта с указанным номером не найдена.
      */
-    @PostMapping("/delete/{number}")
+    @DeleteMapping("/delete/{number}")
     public void deleteCard(@PathVariable Long number) {
         // region Проверка входных данных
         Validation.validateCardNumber(number);

@@ -53,6 +53,21 @@ public class Account {
     }
 
     /**
+     * Конструктор с параметрами.
+     *
+     * @param number   Номер счёта.
+     * @param user     Владелец.
+     * @param currency Валюта.
+     * @param balance  Баланс.
+     */
+    public Account(Long number, User user, String currency, Double balance) {
+        this.number = number;
+        this.user = user;
+        this.currency = currency;
+        this.balance = balance;
+    }
+
+    /**
      * Конструктор копирования.
      *
      * @param account Объект Account.

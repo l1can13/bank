@@ -44,6 +44,21 @@ public class Card {
     /**
      * Конструктор с параметрами.
      *
+     * @param number         Номер карты.
+     * @param account        Банковский счет, связанный с картой.
+     * @param expirationDate Дата окончания срока действия карты.
+     * @param cvv            CVV-код карты.
+     */
+    public Card(Long number, Account account, Date expirationDate, Integer cvv) {
+        this.number = number;
+        this.account = account;
+        this.expirationDate = expirationDate;
+        this.cvv = cvv;
+    }
+
+    /**
+     * Конструктор с параметрами.
+     *
      * @param account        Банковский счет, связанный с картой.
      * @param expirationDate Дата окончания срока действия карты.
      * @param cvv            CVV-код карты.

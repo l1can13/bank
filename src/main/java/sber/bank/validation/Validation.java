@@ -36,7 +36,7 @@ public class Validation {
      * @throws BadArgumentException Если номер счета некорректен.
      */
     public static void validateAccountNumber(Long number) {
-        if (number == null || String.valueOf(number).length() < 20) {
+        if (number == null || String.valueOf(number).length() < 15) {
             throw new BadArgumentException("Некорректный номер счета");
         }
     }

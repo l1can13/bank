@@ -115,7 +115,7 @@ public class UserController {
      * @throws BadArgumentException Если идентификационный номер пользователя некорректен.
      * @throws NotFoundException Если пользователь не найден.
      */
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteUser(@PathVariable Long id) {
         // region Проверка входных данных
         Validation.validateUserId(id);

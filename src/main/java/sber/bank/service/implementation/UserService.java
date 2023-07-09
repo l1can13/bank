@@ -34,18 +34,22 @@ public class UserService implements IService<User> {
      */
     private final CardRepository cardRepository;
 
+    private final AccountService accountService;
+
     /**
      * Конструктор с параметрами.
      *
      * @param userRepository    Репозиторий пользователя.
      * @param accountRepository Репозиторий банковского счёта.
      * @param cardRepository    Репозиторий банковской карты.
+     * @param accountService    Сервис банковских счетов.
      */
     @Autowired
-    public UserService(UserRepository userRepository, AccountRepository accountRepository, CardRepository cardRepository) {
+    public UserService(UserRepository userRepository, AccountRepository accountRepository, CardRepository cardRepository, AccountService accountService) {
         this.userRepository = userRepository;
         this.accountRepository = accountRepository;
         this.cardRepository = cardRepository;
+        this.accountService = accountService;
     }
 
     /**
@@ -89,6 +93,12 @@ public class UserService implements IService<User> {
      */
     @Override
     public void delete(Long id) {
+        List<Account> accounts = getAccounts(id);
+
+        for (Account account : accounts) {
+            accountService.delete(account.getNumber());
+        }
+
         userRepository.delete(getByPk(id));
     }
 

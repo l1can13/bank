@@ -55,6 +55,21 @@ public class User {
     }
 
     /**
+     * Конструктор с параметрами.
+     *
+     * @param id        Уникальный идентификатор пользователя.
+     * @param name      Имя пользователя.
+     * @param birthdate Дата рождения пользователя.
+     * @param address   Адрес пользователя.
+     */
+    public User(Long id, String name, Date birthdate, String address) {
+        this.id = id;
+        this.name = name;
+        this.birthdate = birthdate;
+        this.address = address;
+    }
+
+    /**
      * Конструктор копирования.
      *
      * @param user Объект User.

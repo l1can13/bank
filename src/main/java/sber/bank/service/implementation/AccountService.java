@@ -3,9 +3,13 @@ package sber.bank.service.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sber.bank.domain.Account;
+import sber.bank.domain.Card;
 import sber.bank.exceptions.NotFoundException;
 import sber.bank.repos.AccountRepository;
+import sber.bank.repos.CardRepository;
 import sber.bank.service.IService;
+
+import java.util.List;
 
 /**
  * Реализация сервиса для работы с банковскими счетами.
@@ -13,15 +17,18 @@ import sber.bank.service.IService;
 @Service
 public class AccountService implements IService<Account> {
     private final AccountRepository accountRepository;
+    private final CardRepository cardRepository;
 
     /**
      * Конструктор с параметрами.
      *
      * @param accountRepository Репозиторий банковских счетов.
+     * @param cardRepository    Репозиторий банковских карт.
      */
     @Autowired
-    public AccountService(AccountRepository accountRepository) {
+    public AccountService(AccountRepository accountRepository, CardRepository cardRepository) {
         this.accountRepository = accountRepository;
+        this.cardRepository = cardRepository;
     }
 
     /**
@@ -66,7 +73,12 @@ public class AccountService implements IService<Account> {
      */
     @Override
     public void delete(Long number) {
-        accountRepository.delete(getByPk(number));
+        Account account = getByPk(number);
+
+        List<Card> cards = getCards(account);
+        cardRepository.deleteAll(cards);
+
+        accountRepository.delete(account);
     }
 
     /**
@@ -85,5 +97,9 @@ public class AccountService implements IService<Account> {
         account.setBalance(accountDetail.getBalance());
 
         accountRepository.save(account);
+    }
+
+    public List<Card> getCards(Account account) {
+        return cardRepository.findByAccount(account);
     }
 }

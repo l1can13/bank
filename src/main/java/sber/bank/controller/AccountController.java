@@ -43,7 +43,7 @@ public class AccountController {
      * @throws BadArgumentException Если номер счета некорректен.
      * @throws NotFoundException Если счет с указанным номером не найден.
      */
-    @PostMapping("/delete/{number}")
+    @DeleteMapping("/delete/{number}")
     public void deleteAccount(@PathVariable Long number) {
         // region Проверка входных данных
         Validation.validateAccountNumber(number);
